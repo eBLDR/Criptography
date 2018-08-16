@@ -15,7 +15,7 @@ class VigenereCipher(Cipher):
               " based on the letters of a keyword, it is a form of polyalphabetic substitution.")
 
     def run(self):
-        print('Vigenere, polyalphabetic cipher method. Created by BLDR.\n')
+        print('=== Vigenere, polyalphabetic cipher method ===\n')
         self.initialise()
         if self.mode == 'Cipher Info':
             self.cipher_info()
@@ -27,11 +27,10 @@ class VigenereCipher(Cipher):
             self.display_output_message()
 
     def set_key(self):
-        while True:
-            key = input('Insert your key (sequence of alphabet characters): ')
-            if key.isalpha():
+        while not self.key:
+            key = input('Insert your key (sequence of alphabetic characters): ')
+            if key and all([char.upper() in self.character_set for char in key]):
                 self.key = key.upper()
-                break
 
     def process_message(self, key, decrypt=False):
         msg_code = ''
@@ -40,10 +39,7 @@ class VigenereCipher(Cipher):
                 msg_code += ' '
                 continue
             index_key = index_msg % len(key)
-            if not decrypt:
-                msg_code += self.encrypt_letter(self.input_message[index_msg], index_key)
-            else:
-                msg_code += self.decrypt_letter(self.input_message[index_msg], index_key)
+            msg_code += self.encrypt_letter(self.input_message[index_msg], index_key) if not decrypt else self.decrypt_letter(self.input_message[index_msg], index_key)
         return msg_code
 
 

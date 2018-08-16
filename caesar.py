@@ -16,7 +16,7 @@ class CaesarCipher(Cipher):
               "replaced by a letter some fixed number of positions down the alphabet.")
 
     def run(self):
-        print('Caesar cipher method. Created by BLDR.\n')
+        print('=== Caesar cipher method ===\n')
         self.initialise()
         if self.mode == 'Cipher Info':
             self.cipher_info()
@@ -35,24 +35,17 @@ class CaesarCipher(Cipher):
             self.needs_key = False
 
     def set_key(self):
-        while True:
+        while not self.key:
             key = input('Insert your key [1, {}] (both included): '.format(self.number_of_characters - 1))
             if key.isdigit():
                 key = int(key)
                 if 1 <= key <= self.number_of_characters - 1:
                     self.key = key
-                    break
 
     def process_message(self, key, decrypt=False):
         msg_code = ''
         for letter in self.input_message:
-            if letter == ' ':
-                msg_code += ' '
-                continue
-            if not decrypt:
-                msg_code += self.encrypt_letter(letter, key)
-            else:
-                msg_code += self.decrypt_letter(letter, key)
+            msg_code += ' ' if letter == ' ' else self.encrypt_letter(letter, key) if not decrypt else self.decrypt_letter(letter, key)
         return msg_code
 
     def brute_force(self):

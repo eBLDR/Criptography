@@ -56,14 +56,10 @@ class Cipher:
         raise NotImplementedError
 
     def encrypt_letter(self, letter, key):
-        new_key = self.letter_to_code[letter] + key
-        new_key %= self.number_of_characters
-        return self.code_to_letter[new_key]
+        return self.code_to_letter[(self.letter_to_code[letter] + key) % self.number_of_characters]
 
     def decrypt_letter(self, letter, key):
-        new_key = self.letter_to_code[letter] - key
-        new_key %= self.number_of_characters
-        return self.code_to_letter[new_key]
+        return self.code_to_letter[(self.letter_to_code[letter] - key) % self.number_of_characters]
 
     def display_output_message(self):
         if isinstance(self.output_message, str):
