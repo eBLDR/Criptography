@@ -31,11 +31,10 @@ class Cipher:
         for k, m in self.possible_modes.items():
             menu_str += '<{}> for {}\n'.format(k, m)
         print(menu_str)
-        while True:
+        while not self.mode:
             mode = input('Mode: ').upper()
             if mode in self.possible_modes.keys():
                 self.mode = self.possible_modes[mode]
-                break
 
     def set_message(self):
         while True:

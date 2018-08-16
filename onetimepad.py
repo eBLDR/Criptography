@@ -1,5 +1,5 @@
 """
-One-time pad cipher (random substitution method), by BLDR, 2014 (reviewed 2018)
+One-time pad cipher (random substitution method), by BLDR 2014 (reviewed 2018)
 """
 import random
 
