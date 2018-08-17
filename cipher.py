@@ -18,10 +18,10 @@ class Cipher:
     def cipher_info():
         raise NotImplementedError
 
-    def initialise(self):
+    def initialise(self, **kwargs):
         self.set_mode()
         if self.mode != 'Cipher Info':
-            self.set_message()
+            self.set_message(kwargs.get('accept_numbers'))
             if self.needs_key:
                 self.set_key()
             self.display_info()
@@ -36,14 +36,19 @@ class Cipher:
             if mode in self.possible_modes.keys():
                 self.mode = self.possible_modes[mode]
 
-    def set_message(self):
-        while True:
+    def set_message(self, accept_numbers=False):
+        while not self.input_message:
             msg = input('Type your message: ')
-            if msg and all([char.upper() in self.character_set if char != ' ' else True for char in msg]):
-                self.input_message = msg.upper()
-                break
+            if not accept_numbers:
+                if msg and all([char.upper() in self.character_set if char != ' ' else True for char in msg]):
+                    self.input_message = msg.upper()
+                else:
+                    print('Only letters and whitespaces.')
             else:
-                print('Only letters and whitespaces.')
+                if msg and all([char.isalnum() if char != ' ' else True for char in msg]):
+                    self.input_message = msg.upper()
+                else:
+                    print('Only letters, number and whitespaces.')
 
     def set_key(self):
         raise NotImplementedError

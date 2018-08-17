@@ -36,7 +36,7 @@ class CaesarCipher(Cipher):
 
     def set_key(self):
         while not self.key:
-            key = input('Insert your key [1, {}] (both included): '.format(self.number_of_characters - 1))
+            key = input('Insert key [1, {}] (both included): '.format(self.number_of_characters - 1))
             if key.isdigit():
                 key = int(key)
                 if 1 <= key <= self.number_of_characters - 1:
