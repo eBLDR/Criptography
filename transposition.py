@@ -1,6 +1,8 @@
 """
 Caesar cipher (substitution method) - by BLDR 2014 (reviewed 2018)
 """
+from math import ceil
+
 from cipher import Cipher
 
 
@@ -35,28 +37,15 @@ class TranspositionCipher(Cipher):
                 self.key = int(key)
 
     def process_message(self, key, decrypt=False):
-        if not decrypt:
-            return self.encrypt_message(key)
-        else:
-            return self.decrypt_message(key)
-
-    def encrypt_message(self, key):
-        msg_code = ''
-        for column in range(key):
-            pointer = column
-            while pointer < len(self.input_message):
-                msg_code += self.input_message[pointer]
-                pointer += key
-        return msg_code
-
-    def decrypt_message(self, key):
-        from math import ceil
         msg_code = ''
         msg_length = len(self.input_message)
-        pointer_jump = ceil(msg_length / key)
-        for i in range(msg_length):
-            pointer = (i * pointer_jump) % msg_length
-            msg_code += self.input_message[pointer]
+        pointer_jump = ceil(msg_length / key) if decrypt else key
+
+        for index in range(pointer_jump):
+            pointer = index
+            while pointer < msg_length:
+                msg_code += self.input_message[pointer]
+                pointer += pointer_jump
         return msg_code
 
 
