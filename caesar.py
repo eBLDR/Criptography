@@ -45,7 +45,7 @@ class CaesarCipher(Cipher):
     def process_message(self, key, decrypt=False):
         msg_code = ''
         for letter in self.input_message:
-            msg_code += ' ' if letter == ' ' else self.encrypt_letter(letter, key) if not decrypt else self.decrypt_letter(letter, key)
+            msg_code += letter if letter in [' ', ',', '.'] else self.encrypt_letter(letter, key) if not decrypt else self.decrypt_letter(letter, key)
         return msg_code
 
     def brute_force(self):

@@ -40,7 +40,7 @@ class Cipher:
         while not self.input_message:
             msg = input('Type your message: ')
             if not accept_numbers:
-                if msg and all([char.upper() in self.character_set if char != ' ' else True for char in msg]):
+                if msg and all([char.upper() in self.character_set if char not in [' ', ',', '.'] else True for char in msg]):
                     self.input_message = msg.upper()
                 else:
                     print('Only letters and whitespaces.')
