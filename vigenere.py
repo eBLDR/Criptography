@@ -17,14 +17,7 @@ class VigenereCipher(Cipher):
     def run(self):
         print('=== Vigenere, polyalphabetic cipher method ===\n')
         self.initialise()
-        if self.mode == 'Cipher Info':
-            self.cipher_info()
-        elif self.mode == 'Encryption':
-            self.output_message = self.process_message(self.key)
-        elif self.mode == 'Decryption':
-            self.output_message = self.process_message(self.key, decrypt=True)
-        if self.output_message:
-            self.display_output_message()
+        self.main()
 
     def set_key(self):
         while not self.key:
@@ -35,11 +28,11 @@ class VigenereCipher(Cipher):
     def process_message(self, key, decrypt=False):
         msg_code = ''
         for index_msg in range(len(self.input_message)):
-            if self.input_message[index_msg] == ' ':
-                msg_code += ' '
+            if self.input_message[index_msg] in self.punctuation_signs:
+                msg_code += self.input_message[index_msg]
                 continue
-            index_key = index_msg % len(key)
-            msg_code += self.encrypt_letter(self.input_message[index_msg], index_key) if not decrypt else self.decrypt_letter(self.input_message[index_msg], index_key)
+            tmp_key = self.letter_to_code[key[index_msg % len(key)]] + 1
+            msg_code += self.encrypt_letter(self.input_message[index_msg], tmp_key) if not decrypt else self.decrypt_letter(self.input_message[index_msg], tmp_key)
         return msg_code
 
 

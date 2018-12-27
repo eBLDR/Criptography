@@ -1,5 +1,5 @@
 """
-Caesar cipher (substitution method) - by BLDR 2014 (reviewed 2018)
+Caesar cipher (substitution method) - by BLDR 2018
 """
 from math import ceil
 
@@ -21,14 +21,7 @@ class TranspositionCipher(Cipher):
     def run(self):
         print('=== Transposition cipher method ===\n')
         self.initialise(accept_numbers=True)
-        if self.mode == 'Cipher Info':
-            self.cipher_info()
-        elif self.mode == 'Encryption':
-            self.output_message = self.process_message(self.key)
-        elif self.mode == 'Decryption':
-            self.output_message = self.process_message(self.key, decrypt=True)
-        if self.output_message:
-            self.display_output_message()
+        self.main()
 
     def set_key(self):
         while not self.key:

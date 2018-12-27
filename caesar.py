@@ -18,16 +18,7 @@ class CaesarCipher(Cipher):
     def run(self):
         print('=== Caesar cipher method ===\n')
         self.initialise()
-        if self.mode == 'Cipher Info':
-            self.cipher_info()
-        elif self.mode == 'Encryption':
-            self.output_message = self.process_message(self.key)
-        elif self.mode == 'Decryption':
-            self.output_message = self.process_message(self.key, decrypt=True)
-        elif self.mode == 'BruteForce':
-            self.output_message = self.brute_force()
-        if self.output_message:
-            self.display_output_message()
+        self.main()
 
     def set_mode(self):
         super().set_mode()
@@ -45,7 +36,7 @@ class CaesarCipher(Cipher):
     def process_message(self, key, decrypt=False):
         msg_code = ''
         for letter in self.input_message:
-            msg_code += letter if letter in [' ', ',', '.'] else self.encrypt_letter(letter, key) if not decrypt else self.decrypt_letter(letter, key)
+            msg_code += letter if letter in self.punctuation_signs else self.encrypt_letter(letter, key) if not decrypt else self.decrypt_letter(letter, key)
         return msg_code
 
     def brute_force(self):

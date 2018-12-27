@@ -20,14 +20,7 @@ class OneTimePadCipher(Cipher):
     def run(self):
         print('=== One-time pad cipher method ===\n')
         self.initialise()
-        if self.mode == 'Cipher Info':
-            self.cipher_info()
-        elif self.mode == 'Encryption':
-            self.output_message = self.process_message(self.key)
-        elif self.mode == 'Decryption':
-            self.output_message = self.process_message(self.key, decrypt=True)
-        if self.output_message:
-            self.display_output_message()
+        self.main()
 
     def set_key(self):
         key = ''
